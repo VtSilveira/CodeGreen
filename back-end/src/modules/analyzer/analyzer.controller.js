@@ -1,15 +1,17 @@
+import AnalyzerService from "./analyzer.service.js";
+
 class AnalyzerController {
   constructor() {
-    // this.analyzerService = new AnalyzerService();
+    this.analyzerService = new AnalyzerService();
   }
 
-  async analyze(req, res) {
+  analyze = async (req, res) => {
     const { code, language } = req.body;
 
-    console.log({ code, language });
+    const analyzis = await this.analyzerService.analyzeWithPerf(code, language);
 
-    return res.status(200).json({ code, language });
-  }
+    return res.status(200).json({ analyzis });
+  };
 }
 
 export default AnalyzerController;

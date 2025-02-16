@@ -9,15 +9,29 @@ const CodeForm = ({ onSubmit }) => {
     onSubmit({ language, code });
   };
 
+  const languages = {
+    c: "c",
+    cpp: "cpp",
+    java: "java",
+    python: "python",
+    javascript: "javascript",
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Linguagem:
+        {language === languages.java && (
+          <span style={{ color: "red" }}>
+            *Ao usar java, o nome da classe deve ser &quot;Main&quot;.
+          </span>
+        )}
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-          <option value="python">Python</option>
-          <option value="c">C</option>
-          <option value="java">Java</option>
-          <option value="javascript">JavaScript</option>
+          <option value={languages.python}>Python</option>
+          <option value={languages.c}>C</option>
+          <option value={languages.cpp}>C++</option>
+          <option value={languages.java}>Java</option>
+          <option value={languages.javascript}>JavaScript</option>
         </select>
       </label>
       <textarea

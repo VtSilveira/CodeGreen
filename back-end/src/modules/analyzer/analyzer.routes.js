@@ -5,7 +5,6 @@ const routes = Router();
 const analyzerController = new AnalyzerController();
 
 routes.get("/", (_, res) => {
-  console.log("getting here");
   res.send("Hello from server!");
 });
 
