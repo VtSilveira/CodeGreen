@@ -1,9 +1,10 @@
 const ResultSection = ({ results }) => {
+  console.log("results", results);
   return (
     <div>
       <h2>Resultados</h2>
       {results ? (
-        <pre>{JSON.stringify(results, null, 2)}</pre>
+        <div>{results.analyzis.output}</div>
       ) : (
         <p>Aguardando análise...</p>
       )}

@@ -1,4 +1,10 @@
-- linguagens interpretadas
-- enviar para IA
+- linguagens interpretadas (done)
 - arrumar front
+- enviar para IA
 - deletar arquivos da api depois de analizados (opcional)
+
+sudo sysctl kernel.perf_event_paranoid=0
+
+ollama run deepseek-r1:1.5b
+
+OLLAMA_HOST=127.0.0.1:8888 ollama serve

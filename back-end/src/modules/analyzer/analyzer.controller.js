@@ -10,6 +10,8 @@ class AnalyzerController {
 
     const analyzis = await this.analyzerService.analyzeWithPerf(code, language);
 
+    await this.analyzerService.analyzeWithAI(code, analyzis, language);
+
     return res.status(200).json({ analyzis });
   };
 }

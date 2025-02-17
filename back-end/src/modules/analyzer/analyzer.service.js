@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { v4 } from "uuid";
 import { exec } from "child_process";
+import ollama from "ollama";
 
 class AnalyzerService {
   languages = {
@@ -72,13 +73,17 @@ class AnalyzerService {
           ).catch((err) => ({ error: "Erro na análise Java", details: err }));
 
         case this.languages.python:
-          return this.analyzePython(filePath).catch((err) => ({
+          return this.analyzeInterpretedCode(
+            `${runCommandPrefix} python3 ${filePath}`
+          ).catch((err) => ({
             error: "Erro na análise Python",
             details: err,
           }));
 
         case this.languages.javascript:
-          return this.analyzeJavascript(filePath).catch((err) => ({
+          return this.analyzeInterpretedCode(
+            `${runCommandPrefix} node ${filePath}`
+          ).catch((err) => ({
             error: "Erro na análise JavaScript",
             details: err,
           }));
@@ -124,6 +129,8 @@ class AnalyzerService {
   }
 
   analyzeInterpretedCode(runCommand) {
+    console.log("runcmd:", runCommand);
+
     try {
       return new Promise((resolve, reject) => {
         exec(runCommand, (runError, _, runStderr) => {
@@ -141,6 +148,27 @@ class AnalyzerService {
       });
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async analyzeWithAI(code, perfResults, language) {
+    console.log("perfResults:", perfResults);
+    console.log("code:", code);
+
+    try {
+      const prompt = `You are an specialist in code analyzis. I will send a code, it's language and some energy usage metrics obtained with the perf tool running the code sent. Then, I want you to make an analyzis of the impact on the following topics: Energy consumption, Hardware impact, Usage of resources of the code and Code efficienty.<code>${code}</code><language>${language}</language><perfAnalyzis>${perfResults.output}<perfAnalyzis>`;
+
+      const response = await ollama.chat({
+        model: "deepseek-r1:1.5b",
+        messages: [{ role: "user", content: prompt }],
+      });
+
+      console.log(response.message.content);
+    } catch (error) {
+      console.error(
+        "Erro na requisição:",
+        error.response?.data || error.message
+      );
     }
   }
 }
