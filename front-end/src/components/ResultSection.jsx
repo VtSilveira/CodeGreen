@@ -1,12 +1,18 @@
+import AIAnalyzis from "./AIAnalyzis";
+import EnergyAnalyzis from "./EnergyAnalyzis";
+import PerformanceAnalyzis from "./PerformanceAnalyzis";
+
 const ResultSection = ({ results }) => {
-  console.log("results", results);
   return (
     <div>
-      <h2>Resultados</h2>
       {results ? (
-        <div>{results.analyzis.output}</div>
+        <div>
+          <EnergyAnalyzis analyzis={results.perfAnalyzis.energy} />
+          <PerformanceAnalyzis analyzis={results.perfAnalyzis.resources} />
+          <AIAnalyzis analyzis={results.AIAnalyzis} />
+        </div>
       ) : (
-        <p>Aguardando análise...</p>
+        <></>
       )}
     </div>
   );
