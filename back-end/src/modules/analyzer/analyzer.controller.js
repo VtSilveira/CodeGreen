@@ -8,11 +8,19 @@ class AnalyzerController {
   analyze = async (req, res) => {
     const { code, language } = req.body;
 
-    const analyzis = await this.analyzerService.analyzeWithPerf(code, language);
+    const perfAnalyzis = await this.analyzerService.analyzeWithPerf(
+      code,
+      language
+    );
 
-    await this.analyzerService.analyzeWithAI(code, analyzis, language);
+    const AIAnalyzis = await this.analyzerService.analyzeWithAI(
+      code,
+      perfAnalyzis.energy,
+      perfAnalyzis.resources,
+      language
+    );
 
-    return res.status(200).json({ analyzis });
+    return res.status(200).json({ perfAnalyzis, AIAnalyzis });
   };
 }
 

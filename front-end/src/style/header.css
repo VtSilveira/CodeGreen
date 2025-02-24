@@ -2,11 +2,10 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f9fa;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
   background-color: var(--primary-color);
   color: var(--text-light);
-  margin-bottom: 20px;
+  padding: 15px;
   font-family: "JetBrains Mono", Courier, monospace;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
