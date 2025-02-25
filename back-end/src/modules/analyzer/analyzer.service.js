@@ -244,6 +244,7 @@ Your task is to **analyze the impact of the code** based on the following key as
 <perfResourceUsage>${perfResultsForResourceUsage}</perfResourceUsage>  
 
 ### **Instructions for the Analysis**  
+- The analysis **must be focused in sustentability and performance**. Also known as Green Software Engineering.
 - Provide **clear insights** about the impact of the code on energy and performance.  
 - If inefficiencies are detected, **suggest improvements** with reasoning.  
 - If the programming language affects performance, **explain why**.  
